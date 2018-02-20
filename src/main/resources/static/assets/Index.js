@@ -1,0 +1,1 @@
+React.render("<div>lol</div>", document.getElementById('root'))
