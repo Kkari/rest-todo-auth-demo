@@ -1,8 +1,13 @@
 package com.example.resttodoauthdemo.security;
 
+import com.example.resttodoauthdemo.user.User;
+import com.example.resttodoauthdemo.user.UserRepository;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import java.util.Arrays;
 
 public class RepositoryUserDetailsService implements UserDetailsService {
 
@@ -20,15 +25,11 @@ public class RepositoryUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("no found");
         }
 
-        ExampleUserDetails principal = ExampleUserDetails.getBuilder()
-                .firstName(user.getFirstName())
-                .id(user.getId())
-                .lastName(user.getLastName())
-                .password(user.getPassword())
-                .role(user.getRole())
-                .socialSignInProvider(user.getSignInProvider())
-                .username(user.getEmail())
-                .build();
+        ExampleUserDetails principal = new ExampleUserDetails(
+                Arrays.asList(new SimpleGrantedAuthority("ROLE_USER")),
+                user.getPassword(),
+                user.getEmail()
+        );
 
         return principal;
     }

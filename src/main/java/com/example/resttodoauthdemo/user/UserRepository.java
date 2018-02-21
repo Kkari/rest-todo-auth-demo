@@ -1,4 +1,4 @@
-package com.example.resttodoauthdemo.security;
+package com.example.resttodoauthdemo.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

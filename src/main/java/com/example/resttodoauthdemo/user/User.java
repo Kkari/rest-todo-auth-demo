@@ -1,4 +1,6 @@
-package com.example.resttodoauthdemo.security;
+package com.example.resttodoauthdemo.user;
+
+import com.example.resttodoauthdemo.security.Role;
 
 import javax.persistence.*;
 
@@ -12,24 +14,20 @@ public class User {
     @Column(name="email", length=100, nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password", length = 20)
+    @Column(name = "password")
     private String password;
-
-    @Column(name="first_name", length = 100, nullable = false)
-    private String firstName;
-
-    @Column(name="last_name", length = 100, nullable = false)
-    private String lastName;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", length = 20, nullable = false)
     private Role role;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "sign_in_provider", length = 20)
-    private SocialMediaService signInProvider;
-
     public User() {}
+
+    public User(String email, String password, Role role) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
 
     public Long getId() {
         return id;
@@ -55,35 +53,11 @@ public class User {
         this.password = password;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public Role getRole() {
         return role;
     }
 
     public void setRole(Role role) {
         this.role = role;
-    }
-
-    public SocialMediaService getSignInProvider() {
-        return signInProvider;
-    }
-
-    public void setSignInProvider(SocialMediaService signInProvider) {
-        this.signInProvider = signInProvider;
     }
 }
